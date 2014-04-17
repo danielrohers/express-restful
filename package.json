@@ -1,0 +1,18 @@
+{
+  "name": "express_restful",
+  "version": "0.0.1",
+  "description": "Simple restful application with node.js and express",
+  "main": "app.js",
+  "scripts": {
+    "start": "supervisor app.js"
+  },
+  "author": "Daniel Röhers Moura",
+  "license": "ISC",
+  "dependencies": {
+    "express": "4.0.0",
+    "supervisor": "0.6.0",
+    "mongodb": "1.4.0",
+    "mongoose": "3.8.8",
+    "body-parser": "1.0.2"
+  }
+}

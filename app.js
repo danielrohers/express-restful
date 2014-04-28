@@ -19,6 +19,10 @@ fs.readdirSync(modelsPath).forEach(function (file) {
 });
 
 // routes
+router.use(function (req, res, next) {
+  console.log(req.method, req.url);
+  next();
+});
 var routesPath = path.join(__dirname, 'app/routes');
 fs.readdirSync(routesPath).forEach(function (file) {
   require(routesPath + '/' + file)(router);

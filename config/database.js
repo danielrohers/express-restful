@@ -16,12 +16,26 @@ var uristring =  process.env.MONGOLAB_URI || process.env.MONGOHQ_URL ||  "mongod
 var mongoOptions = { db: { safe: true } };
 
 // Connect to Database
-mongoose.connect(uristring, mongoOptions, function (err, res) {
-  if(err){
-    console.log('ERROR connecting to: ' + uristring + '. ' + err);
-  }else{
-    console.log('Successfully connected to: ' + uristring);
-  }
+mongoose.connect(uristring, mongoOptions);
+
+// Mongoose events
+mongoose.connection.on('connected', function () {
+  console.log('Mongoose connection open to ' + uristring);
+});
+
+mongoose.connection.on('error',function (err) {
+  console.log('Mongoose connection error: ' + err);
+});
+
+mongoose.connection.on('disconnected', function () {
+  console.log('Mongoose connection disconnected');
+});
+
+process.on('SIGINT', function() {
+  mongoose.connection.close(function () {
+    console.log('Mongoose connection disconnected through app termination');
+    process.exit(0);
+  });
 });
 
 exports.mongoose = mongoose;

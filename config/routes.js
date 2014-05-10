@@ -7,7 +7,7 @@ module.exports = function (router) {
 
   // simple logger for this router's requests
   router.use(function (req, res, next) {
-    console.log('%s %s %s', req.method, req.url, req.path);
+    console.log('%s %s', req.method, req.url);
     next();
   });
 

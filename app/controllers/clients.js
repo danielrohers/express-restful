@@ -2,8 +2,8 @@
 
 var clients = (function () {
 
-  var exports = {},
-      Client = require('../models/client');
+  var exports = {};
+  var Client = require('../models/client');
 
   function _findOne (id, callback) {
     Client.findOne({ _id: id }, callback)

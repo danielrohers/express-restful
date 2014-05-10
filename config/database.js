@@ -1,4 +1,5 @@
 'use strict';
+
 var mongoose = require('mongoose');
 
 var config = {
@@ -11,16 +12,16 @@ var config = {
 
 var port = (config.port.length > 0) ? ":" + config.port : '';
 var login = (config.user.length > 0) ? config.user + ":" + config.pw + "@" : '';
-var uristring =  process.env.MONGOLAB_URI || process.env.MONGOHQ_URL ||  "mongodb://" + login + config.host + port + "/" + config.db;
+var uri =  process.env.MONGOLAB_URI || process.env.MONGOHQ_URL ||  "mongodb://" + login + config.host + port + "/" + config.db;
 
 var mongoOptions = { db: { safe: true } };
 
 // Connect to Database
-mongoose.connect(uristring, mongoOptions);
+mongoose.connect(uri, mongoOptions);
 
 // Mongoose events
 mongoose.connection.on('connected', function () {
-  console.log('Mongoose connection open to ' + uristring);
+  console.log('Mongoose connection open to ' + uri);
 });
 
 mongoose.connection.on('error',function (err) {

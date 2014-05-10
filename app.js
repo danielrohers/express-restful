@@ -1,36 +1,24 @@
 'use strict';
 
-var express = require('express'),
-    app = express(),
-    bodyParser = require('body-parser'),
-    path = require('path'),
-    fs = require('fs'),
-    router = express.Router();
+var express = require('express');
+var app = express();
+var router = express.Router();
+var bodyParser = require('body-parser');
 
 app.use(bodyParser());
+app.use(router);
+app.set('port', process.env.PORT || 3000);
 
-// Connect to database
+// Define database
 require('./config/database');
 
-// models
-var modelsPath = path.join(__dirname, 'app/models');
-fs.readdirSync(modelsPath).forEach(function (file) {
-  require(modelsPath + '/' + file);
-});
+// Define routes
+require('./config/routes')(router);
 
-// routes
-router.use(function (req, res, next) {
-  console.log(req.method, req.url);
-  next();
-});
-var routesPath = path.join(__dirname, 'app/routes');
-fs.readdirSync(routesPath).forEach(function (file) {
-  require(routesPath + '/' + file)(router);
-});
-app.use(router);
+// Define models
+require('./config/models');
 
 // set our port
-var port = Number(process.env.PORT || 3000);
-app.listen(port, function () {
-  console.log("Listening on " + port);
+app.listen(app.get('port'), function () {
+  console.log("Listening on " + app.get('port'));
 });

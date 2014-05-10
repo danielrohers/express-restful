@@ -11,5 +11,5 @@ module.exports = function (router) {
     .get('/clients/:id', clients.get)
     .put('/clients/:id', clients.update)
     .delete('/clients/:id', clients.delete);
-
-}
+    
+};
